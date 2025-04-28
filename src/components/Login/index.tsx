@@ -31,8 +31,8 @@ export function LoginForm() {
             const userCredential = await signInWithEmailAndPassword(auth, values.user_name, values.password);
             const user = userCredential.user;
             console.log("User logged in:", user);
-        } catch (error: any) {
-            console.error("Login failed:", error.message);
+        } catch (error) {
+            console.log("Login failed:", error);
         }
     }
     async function handleGoogleLogin() {

@@ -3,6 +3,7 @@ import { Action, State } from "@/lib/utils/types";
 import React, { useReducer } from "react";
 import ChatForm from "./ChatForm";
 import ChatMessage from "./ChatMessage";
+import { Button } from "../ui/button";
 const initialState: State = {
     room: "",
     joined: false,
@@ -25,6 +26,7 @@ function reducer(state: State, action: Action): State {
 }
 
 function ChatComponent() {
+    // @typescript-eslint/no-unused-vars
     const [state, dispatch] = useReducer(reducer, initialState);
     return (
         <div>
@@ -42,6 +44,7 @@ function ChatComponent() {
                     })}
                 </div>
                 <ChatForm />
+                <Button onClick={() => dispatch({ type: "SET_USERNAME", payload: "amin" })}>Hello</Button>
             </div>
         </div>
     );
