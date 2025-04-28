@@ -1,0 +1,39 @@
+{
+    "hello": "Hello World",
+    "HomePage": {
+        "title": "Hello world!",
+        "about": "Go to the about page"
+    },
+    "NavBar": {
+        "title": "Hello world!",
+        "about": "Go to the about page"
+    },
+    "Global": {
+        "appName": "socket io",
+        "back": "back",
+        "motto": "great out",
+        "language": "فا"
+    },
+    "LoginPage": {
+        "title": "Login Page",
+        "Required": "Required",
+        "error_max": "can not be more than {max}",
+        "phone_number": "Phone Number",
+        "password": "Password",
+        "submit": "Submit",
+        "user_name": "User Name",
+        "login": "Login",
+        "GoogleLogin": "Google Login",
+        "minimum_character": "Password should be at least 6 characters long",
+        "remember": "remember me",
+        "forget": "forgot everything?",
+        "noAccount": "no account?",
+        "createHere": "create here!"
+    },
+    "ChatForm": {
+        "message": "message must be at least 2 characters.",
+        "title": "message",
+        "placeHolder": "write your message here...",
+        "submit": "submit"
+    }
+}

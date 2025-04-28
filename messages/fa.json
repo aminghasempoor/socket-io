@@ -1,0 +1,39 @@
+{
+    "hello": "Hello World",
+    "HomePage": {
+        "title": "شلام",
+        "about": "دونیا"
+    },
+    "NavBar": {
+        "title": "شلام",
+        "about": "دونیا"
+    },
+    "Global": {
+        "appName": "وب سوکت",
+        "back": "بازگشت",
+        "motto": "آسان تر از همیشه",
+        "language": "فا"
+    },
+    "LoginPage": {
+        "title": "صفحه ورود",
+        "Required": "ضروری",
+        "error_max": "نمی تواند بیشتر از {max} ",
+        "phone_number": "شماره تلفن",
+        "password": "رمز عبور",
+        "submit": "تایید",
+        "minimum_character": "رمز عبور حداقل باید 6 کاراکتر باشد",
+        "login": "ورود",
+        "GoogleLogin": "ورود با گوگل",
+        "user_name": "نام کاربری",
+        "remember": "مرا به خاطر بسپار",
+        "forget": "فراموش کردی؟",
+        "noAccount": "اکانت نداری؟",
+        "createHere": "اینجا بساز!"
+    },
+    "ChatForm": {
+        "message": "حداقل دو کاراکتر نیاز است",
+        "title": "پیغام",
+        "placeHolder": "پیغام خود را بنویسید...",
+        "submit": "ارسال"
+    }
+}

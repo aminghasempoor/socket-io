@@ -1,0 +1,110 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useTranslations } from "next-intl";
+import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import Link from "next/link";
+import { Checkbox } from "@/components/ui/checkbox";
+import { LogIn } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { loginFormSchema } from "@/lib/utils/schemas";
+import { LoginFormType } from "@/lib/utils/types";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+
+export function LoginForm() {
+    const t = useTranslations();
+    const form = useForm({
+        resolver: zodResolver(loginFormSchema(t)),
+        mode: "onBlur",
+        defaultValues: {
+            user_name: "",
+            password: "",
+        },
+    });
+
+    async function onSubmit(values: LoginFormType) {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, values.user_name, values.password);
+            const user = userCredential.user;
+            console.log("User logged in:", user);
+        } catch (error) {
+            console.log("Login failed:", error);
+        }
+    }
+    async function handleGoogleLogin() {
+        try {
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            console.log("User info:", user);
+        } catch (error) {
+            console.error("Google login error:", error);
+        }
+    }
+
+    return (
+        <Form {...form}>
+            <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4 max-w-md capitalize">
+                <Card className="w-full">
+                    <CardHeader className="text-center space-y-2">
+                        <CardTitle className="text-3xl font-black">{t("Global.appName")}</CardTitle>
+                        <CardDescription>{t("Global.motto")}</CardDescription>
+                    </CardHeader>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <CardContent className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name="user_name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Input placeholder={t("LoginPage.user_name")} {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="password"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Input type="password" placeholder={t("LoginPage.password")} {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <div className="flex justify-between items-center text-sm">
+                                <div className="flex items-center gap-2">
+                                    <Checkbox id="remember" />
+                                    <label htmlFor="remember" className="cursor-pointer">
+                                        {t("LoginPage.remember")}
+                                    </label>
+                                </div>
+                                <Link href="" className="hover:underline">
+                                    {t("LoginPage.forget")}
+                                </Link>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="flex flex-col gap-4 pt-4">
+                            <Button type="submit" className="w-full">
+                                {t("LoginPage.login")}
+                                <LogIn className="ml-2" />
+                            </Button>
+                            <Button className="w-full" onClick={handleGoogleLogin}>
+                                {t("LoginPage.GoogleLogin")}
+                                <LogIn className="ml-2" />
+                            </Button>
+                        </CardFooter>
+                    </form>
+                </Card>
+            </div>
+        </Form>
+    );
+}
