@@ -9,6 +9,12 @@ import { Navbar } from "@/components/navbar";
 const myFont = localFont({
     src: "../../fonts/Doran-Medium.woff2",
 });
+export const metadata = {
+    title: {
+        template: "%s | socket-io",
+        default: "socket-io",
+    },
+};
 export default async function LocaleLayout({
     children,
     params,
