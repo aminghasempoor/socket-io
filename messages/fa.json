@@ -1,7 +1,11 @@
 {
-  "hello": "Hello World",
-  "HomePage": {
-    "title": "شلام",
-    "about": "دونیا"
-  }
+    "hello": "Hello World",
+    "HomePage": {
+        "title": "شلام",
+        "about": "دونیا"
+    },
+    "NavBar": {
+        "title": "شلام",
+        "about": "دونیا"
+    }
 }

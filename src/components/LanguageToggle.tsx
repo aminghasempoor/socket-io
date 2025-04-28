@@ -8,7 +8,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { Earth } from "lucide-react";
 
-const LanguageSwitcher = () => {
+const LanguageToggle = () => {
     const router = useRouter();
     const pathname = usePathname();
     const locales = ["en", "fa"];
@@ -29,7 +29,7 @@ const LanguageSwitcher = () => {
         <DropdownMenu>
             <DropdownMenuTrigger className="flex gap-x-1">
                 <p className={"p-0 text-sm sm:text-md"}>{currentLocale === "en" ? "En" : "فارسی"}</p>
-                <Earth className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Earth className="w-1 h-1 sm:w-5 sm:h-5" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-32">
                 {locales.map((locale) => (
@@ -42,4 +42,4 @@ const LanguageSwitcher = () => {
     );
 };
 
-export default LanguageSwitcher;
+export default LanguageToggle;
