@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
         id: faker.number.int({ min: 1, max: 1000 }),
         name: faker.person.fullName(),
         email: faker.internet.email(),
-        role: faker.helpers.arrayElement(["admin", "user", "editor"]),
+        role: faker.helpers.arrayElement(["admin", "user", "system"]),
     };
 
     return NextResponse.json(user, { status: 200 });

@@ -12,10 +12,12 @@ function reducer(state: State, action: Action): State {
             return { ...state, room: action.payload };
         case "SET_JOINED":
             return { ...state, joined: action.payload };
-        case "SET_MESSAGE":
-            return { ...state, message: action.payload };
         case "SET_USERNAME":
             return { ...state, userName: action.payload };
+        case "SET_MESSAGE":
+            return { ...state, message: action.payload }; // full replace
+        case "ADD_MESSAGE":
+            return { ...state, message: [...state.message, action.payload] }; // append only
         default:
             return state;
     }
@@ -33,17 +35,23 @@ function ChatComponent() {
 
     useEffect(() => {
         handleJoinRoom();
+
         socket.on("chat_message", (data) => {
             console.log("chat_message", data);
-            dispatch({ type: "SET_MESSAGE", payload: [...state.message, data] });
+            dispatch({ type: "ADD_MESSAGE", payload: data });
         });
+
         socket.on("user_joined", (msg) => {
             console.log("user_joined", msg);
-            dispatch({ type: "SET_MESSAGE", payload: [...state.message, { sender: "system", message: msg }] });
+            dispatch({
+                type: "ADD_MESSAGE",
+                payload: { sender: "system", message: msg },
+            });
         });
+
         return () => {
-            socket.off("user_joined");
             socket.off("chat_message");
+            socket.off("user_joined");
         };
     }, []);
 
@@ -55,29 +63,23 @@ function ChatComponent() {
 
     const handleSendMessage = (value: string) => {
         const data = { sender: state.userName, message: value };
-        dispatch({ type: "SET_MESSAGE", payload: [...state.message, data] });
-        socket.on("chat_message", (data) => {
-            console.log("chat_message", data);
-            dispatch({ type: "SET_MESSAGE", payload: [...state.message, data] });
-        });
+        dispatch({ type: "ADD_MESSAGE", payload: data });
+
         socket.emit("chat_message", state.room, value, state.userName);
     };
-    console.log(state.message);
 
     return (
         <div>
             <div className="w-full max-w-3xl mx-auto">
                 <div className="h-[500px] overflow-y-auto p-4 mb-4 border-2 rounded-lg bg-foreground/10">
-                    {state.message.map((msg, index) => {
-                        return (
-                            <ChatMessage
-                                key={index}
-                                sender={msg.sender}
-                                message={msg.message}
-                                isOwnMessage={msg.sender === state.userName}
-                            />
-                        );
-                    })}
+                    {state.message.map((msg, index) => (
+                        <ChatMessage
+                            key={index}
+                            sender={user.role}
+                            message={msg.message}
+                            isOwnMessage={msg.sender === state.userName}
+                        />
+                    ))}
                 </div>
                 <ChatForm handleSendMessage={handleSendMessage} />
             </div>

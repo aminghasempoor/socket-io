@@ -16,4 +16,5 @@ export type Action =
     | { type: "SET_ROOM"; payload: string }
     | { type: "SET_JOINED"; payload: boolean }
     | { type: "SET_MESSAGE"; payload: { sender: string; message: string }[] }
+    | { type: "ADD_MESSAGE"; payload: { sender: string; message: string } } // ✅ اضافه‌شده
     | { type: "SET_USERNAME"; payload: string };
