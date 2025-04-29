@@ -14,6 +14,17 @@
         "motto": "great out",
         "language": "فا"
     },
+    "Notifications": {
+        "code": "Code",
+        "title": "You're Request has been sent",
+        "error": "Error",
+        "warning": "Warning",
+        "success": "Success",
+        "error_static_text": "Your operation encountered an error",
+        "warning_static_text": "Server error",
+        "success_static_text": "Your operation was successful",
+        "pending": "pending..."
+    },
     "LoginPage": {
         "title": "Login Page",
         "Required": "Required",

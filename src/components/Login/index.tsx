@@ -12,11 +12,16 @@ import { LogIn } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { loginFormSchema } from "@/lib/utils/schemas";
 import { LoginFormType } from "@/lib/utils/types";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
+import useRequest from "@/lib/hooks/useRequest";
+import useUserStore from "@/lib/utils/userStore";
+import { GET_LOGIN_ROUTE } from "@/lib/utils/apiRoutes";
 
 export function LoginForm() {
     const t = useTranslations();
+    const { setToken, getUser } = useUserStore();
+    const requestServer = useRequest({ notification: true });
+    const router = useRouter();
     const form = useForm({
         resolver: zodResolver(loginFormSchema(t)),
         mode: "onBlur",
@@ -28,21 +33,22 @@ export function LoginForm() {
 
     async function onSubmit(values: LoginFormType) {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, values.user_name, values.password);
-            const user = userCredential.user;
-            console.log("User logged in:", user);
+            const response = (await requestServer(GET_LOGIN_ROUTE, "post", {
+                data: {
+                    username: values.user_name,
+                    password: values.password,
+                },
+                success: {
+                    notification: { show: true },
+                },
+            })) as { data: { token: string } };
+            console.log(response);
+
+            setToken(response.data.token);
+            await getUser();
+            router.push("/chat");
         } catch (error) {
-            console.log("Login failed:", error);
-        }
-    }
-    async function handleGoogleLogin() {
-        try {
-            const provider = new GoogleAuthProvider();
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            console.log("User info:", user);
-        } catch (error) {
-            console.error("Google login error:", error);
+            console.log(error);
         }
     }
 
@@ -95,10 +101,6 @@ export function LoginForm() {
                         <CardFooter className="flex flex-col gap-4 pt-4">
                             <Button type="submit" className="w-full">
                                 {t("LoginPage.login")}
-                                <LogIn className="ml-2" />
-                            </Button>
-                            <Button className="w-full" onClick={handleGoogleLogin}>
-                                {t("LoginPage.GoogleLogin")}
                                 <LogIn className="ml-2" />
                             </Button>
                         </CardFooter>

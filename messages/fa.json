@@ -14,6 +14,17 @@
         "motto": "آسان تر از همیشه",
         "language": "فا"
     },
+    "Notifications": {
+        "code": "کد",
+        "error": "خطا",
+        "title": "درخواست شما ارسال شد",
+        "warning": "خطا",
+        "success": "موفق",
+        "error_static_text": "عملیات شما با خطا مواجه شد",
+        "warning_static_text": "خطا سرور",
+        "success_static_text": "عملیات شما با موفقیت انجام شد",
+        "pending": "در حال انجام..."
+    },
     "LoginPage": {
         "title": "صفحه ورود",
         "Required": "ضروری",
