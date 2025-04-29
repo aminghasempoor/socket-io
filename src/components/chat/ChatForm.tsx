@@ -9,17 +9,19 @@ import { chatFormSchema } from "@/lib/utils/schemas";
 import { useTranslations } from "next-intl";
 import { ChatFormType } from "@/lib/utils/types";
 
-export default function ChatForm() {
+export default function ChatForm({ handleSendMessage }: { handleSendMessage: (value: string) => void }) {
     const t = useTranslations();
     const form = useForm<ChatFormType>({
         resolver: zodResolver(chatFormSchema(t)),
         defaultValues: {
             message: "",
         },
+        mode: "onBlur",
     });
 
     function onSubmit(values: ChatFormType) {
-        console.log(values);
+        handleSendMessage(values.message);
+        form.reset();
     }
 
     return (

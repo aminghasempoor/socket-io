@@ -1,5 +1,7 @@
 {
     "hello": "Hello World",
+    "unknown_error": "something went wrong while authentication...",
+    "authenticating": "authenticating...",
     "HomePage": {
         "title": "Hello world!",
         "about": "Go to the about page"
@@ -13,6 +15,23 @@
         "back": "back",
         "motto": "great out",
         "language": "فا"
+    },
+    "Notifications": {
+        "code": "Code",
+        "title": "You're Request has been sent",
+        "error": "Error",
+        "warning": "Warning",
+        "success": "Success",
+        "error_static_text": "Your operation encountered an error",
+        "warning_static_text": "Server error",
+        "success_static_text": "Your operation was successful",
+        "pending": "pending..."
+    },
+    "AuthMiddleware": {
+        "title": "you don not have permission to this page..."
+    },
+    "NotAuthMiddleware": {
+        "title": "you have permission to this page don not need to login again..."
     },
     "LoginPage": {
         "title": "Login Page",

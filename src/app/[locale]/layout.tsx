@@ -5,6 +5,8 @@ import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
 import localFont from "next/font/local";
 import { Navbar } from "@/components/navbar";
+import UserInitializer from "@/components/UserInitializer";
+import { Toaster } from "@/components/ui/toaster";
 
 const myFont = localFont({
     src: "../../fonts/Doran-Medium.woff2",
@@ -32,8 +34,10 @@ export default async function LocaleLayout({
             <body>
                 <NextIntlClientProvider>
                     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                        <UserInitializer />
                         <Navbar />
                         <main className="px-5 py-2">{children}</main>
+                        <Toaster />
                     </ThemeProvider>
                 </NextIntlClientProvider>
             </body>
