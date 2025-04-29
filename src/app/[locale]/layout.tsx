@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/theme-provider";
 import localFont from "next/font/local";
 import { Navbar } from "@/components/navbar";
+// import { ClerkProvider } from "@clerk/nextjs";
 
 const myFont = localFont({
     src: "../../fonts/Doran-Medium.woff2",
@@ -30,12 +31,14 @@ export default async function LocaleLayout({
     return (
         <html className={myFont.className} dir={locale === "fa" ? "rtl" : "ltr"} lang={locale} suppressHydrationWarning>
             <body>
+                {/* <ClerkProvider> */}
                 <NextIntlClientProvider>
                     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
                         <Navbar />
                         <main className="px-5 py-2">{children}</main>
                     </ThemeProvider>
                 </NextIntlClientProvider>
+                {/* </ClerkProvider> */}
             </body>
         </html>
     );

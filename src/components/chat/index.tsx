@@ -1,9 +1,10 @@
 "use client";
 import { Action, State } from "@/lib/utils/types";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import ChatForm from "./ChatForm";
 import ChatMessage from "./ChatMessage";
 import { Button } from "../ui/button";
+import { socket } from "@/lib/socketClient";
 const initialState: State = {
     room: "",
     joined: false,
@@ -26,8 +27,17 @@ function reducer(state: State, action: Action): State {
 }
 
 function ChatComponent() {
-    // @typescript-eslint/no-unused-vars
     const [state, dispatch] = useReducer(reducer, initialState);
+    useEffect(() => {
+        socket.on("user_joined", (data) => {
+            console.log(data);
+            dispatch({ type: "SET_MESSAGE", payload: [...state.message, { sender: "system", message: data }] });
+        });
+        return () => {
+            socket.off("user_joined");
+            socket.off("message");
+        };
+    }, []);
     return (
         <div>
             <div className="w-full max-w-3xl mx-auto">
@@ -44,7 +54,6 @@ function ChatComponent() {
                     })}
                 </div>
                 <ChatForm />
-                <Button onClick={() => dispatch({ type: "SET_USERNAME", payload: "amin" })}>Hello</Button>
             </div>
         </div>
     );
