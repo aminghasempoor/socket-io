@@ -3,7 +3,6 @@ import { Action, State } from "@/lib/utils/types";
 import React, { useEffect, useReducer } from "react";
 import ChatForm from "./ChatForm";
 import ChatMessage from "./ChatMessage";
-import { Button } from "../ui/button";
 import { socket } from "@/lib/socketClient";
 const initialState: State = {
     room: "",
@@ -37,7 +36,7 @@ function ChatComponent() {
             socket.off("user_joined");
             socket.off("message");
         };
-    }, []);
+    }, [state.message]);
     return (
         <div>
             <div className="w-full max-w-3xl mx-auto">
