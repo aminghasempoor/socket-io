@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const data = loginSchema.parse(body);
 
-        if (data.username === "admin" && data.password === "123456") {
+        if (data.username && data.password) {
             return NextResponse.json({ message: "Login successful", token: "fake-jwt-token" }, { status: 200 });
         }
 

@@ -1,5 +1,7 @@
 {
     "hello": "Hello World",
+    "unknown_error": "مشکلی در احراز هویت رخ داده است . دقایقی بعد امتحان کنید!!!",
+    "authenticating": "درحال احراز هویت...",
     "HomePage": {
         "title": "شلام",
         "about": "دونیا"
@@ -13,6 +15,12 @@
         "back": "بازگشت",
         "motto": "آسان تر از همیشه",
         "language": "فا"
+    },
+    "AuthMiddleware": {
+        "title": "شما دسترسی لازم به این صفحه را ندارید..."
+    },
+    "NotAuthMiddleware": {
+        "title": "شما دسترسی لازم به این صفحه را دارید و نیاز به ورود مجدد نیست..."
     },
     "Notifications": {
         "code": "کد",

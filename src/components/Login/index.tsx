@@ -42,7 +42,6 @@ export function LoginForm() {
                     notification: { show: true },
                 },
             })) as { data: { token: string } };
-            console.log(response);
 
             setToken(response.data.token);
             await getUser();

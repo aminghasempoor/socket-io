@@ -14,11 +14,18 @@ app.prepare().then(() => {
     const io = new Server(httpServer);
     io.on("connection", (socket) => {
         console.log("user connected : ", socket.id);
+
         socket.on("join-room", (room, username) => {
             socket.join(room);
             console.log(`User ${username} joined room ${room}`);
             socket.to(room).emit("user_joined", `${username} joined room ${room}`);
         });
+
+        socket.on("chat_message", (room, message, sender) => {
+            console.log(`Message from ${sender} in room ${room} : ${message}`);
+            socket.to(room).emit("chat_message", { sender, message });
+        });
+
         socket.on("disconnect", (scket) => {
             console.log(`user disconnected with id : ${socket.id}`);
         });

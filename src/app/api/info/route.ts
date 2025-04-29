@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { faker } from "@faker-js/faker";
 
 export async function GET(req: NextRequest) {
     const authHeader = req.headers.get("authorization");
@@ -14,11 +15,11 @@ export async function GET(req: NextRequest) {
     }
 
     const user = {
-        id: 1,
-        name: "Admin User",
-        email: "admin@example.com",
-        role: "admin",
+        id: faker.number.int({ min: 1, max: 1000 }),
+        name: faker.person.fullName(),
+        email: faker.internet.email(),
+        role: faker.helpers.arrayElement(["admin", "user", "editor"]),
     };
 
-    return NextResponse.json({ user }, { status: 200 });
+    return NextResponse.json(user, { status: 200 });
 }
